@@ -95,17 +95,17 @@
                                 <!-- Submit Button-->
                                 <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Enviar</button>
 
-                                    <!-- Success Message div -->
-                                    <div id="successMessage" class="alert alert-success mt-3" style="display: none;">
-                                        Formulario enviado exitosamente.
-                                    </div>
-
-                                    <!-- Error Message div -->
-                                    <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;">
-                                        Ha ocurrido un error al enviar el formulario. Por favor, inténtelo nuevamente.
-                                    </div>
+                                   
                             </form>
-                            
+                             <!-- Success Message div -->
+                             <div id="successMessage" class="alert alert-success mt-3" style="display: none;">
+                                Formulario enviado exitosamente.
+                            </div>
+
+                            <!-- Error Message div -->
+                            <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;">
+                                Ha ocurrido un error al enviar el formulario. Por favor, inténtelo nuevamente.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -241,6 +241,9 @@
             // Muestra el mensaje de éxito y oculta el mensaje de error
             document.getElementById("successMessage").style.display = "block";
             document.getElementById("errorMessage").style.display = "none";
+            
+            // Oculta el formulario
+            document.querySelector("form").style.display = "none";
             
             // Puedes agregar lógica adicional aquí según la respuesta de la API
         })
