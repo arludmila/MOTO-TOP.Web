@@ -60,7 +60,7 @@
             </div>
         </header>
         <!-- Resultado-->
-        <div>
+        <div id="resultDiv" style="display: none;">
             <aside class="bg-secondary bg-gradient p-4 p-sm-5">
                 <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
                     <div class="mb-4 mb-xl-0">
@@ -95,23 +95,26 @@
             // Obtiene el código del input
             var codigoPedido = document.getElementById("code").value;
 
+            // Hace visible el div de resultado
+            var resultDiv = document.getElementById("resultDiv");
+            resultDiv.style.display = "block";
+
             // Haces la llamada a la API (reemplaza la URL por la de tu API)
             fetch('https://moto-top.azurewebsites.net/api/orders/getOrderStatus/' + codigoPedido)
             .then(response => response.text()) // Cambiado a response.text()
             .then(data => {
                     // Traduce y muestra el resultado en el div
-                    var resultDiv = document.getElementById("result");
+                    var resultSpan = document.getElementById("result");
                     if (data === "Received") {
-                        resultDiv.innerText = "Recibido";
+                        resultSpan.innerText = "Recibido";
                     } else if (data === "Preparing") {
-                        resultDiv.innerText = "En preparación";
+                        resultSpan.innerText = "En preparación";
                     } else if (data === "Shipped") {
-                        resultDiv.innerText = "Enviado";
+                        resultSpan.innerText = "Enviado";
                     } else {
-                        resultDiv.innerText = "Estado desconocido";
+                        resultSpan.innerText = "Estado desconocido";
                     }
                 })
-
                 .catch(error => {
                     // Maneja el error si ocurre
                     console.error('Error al consultar la API:', error);

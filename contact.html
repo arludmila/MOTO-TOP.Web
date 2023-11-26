@@ -93,7 +93,17 @@
                                     <label for="message">Mensaje</label>
                                 </div>
                                 <!-- Submit Button-->
-                                <button class="btn btn-primary btn-lg" id="submitButton" type="submit" >Enviar</button>
+                                <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Enviar</button>
+
+                                    <!-- Success Message div -->
+                                    <div id="successMessage" class="alert alert-success mt-3" style="display: none;">
+                                        Formulario enviado exitosamente.
+                                    </div>
+
+                                    <!-- Error Message div -->
+                                    <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;">
+                                        Ha ocurrido un error al enviar el formulario. Por favor, inténtelo nuevamente.
+                                    </div>
                             </form>
                             
                         </div>
@@ -186,57 +196,40 @@
             });
         }
     </script>
-    <script>
-        function enviarFormulario(event) {
-            event.preventDefault(); // Evita la recarga de la página al enviar el formulario
+<script>
+    function enviarFormulario(event) {
+        event.preventDefault(); // Evita la recarga de la página al enviar el formulario
 
-            // Obtiene los valores de los campos del formulario
-            const firstName = document.getElementById("first_name").value;
-            const lastName = document.getElementById("last_name").value;
-            const email = document.getElementById("email").value;
-            const phoneNumber = document.getElementById("phone_number").value;
-            const province = document.getElementById("province").value;
-            const city = document.getElementById("city").value;
-            const address = document.getElementById("address").value;
-            const message = document.getElementById("message").value;
+        // ... (your existing code) ...
 
-            // Combina provincia, ciudad y dirección en un solo campo "location"
-            const location = `${province}, ${city}, ${address}`;
+        fetch("https://localhost:7215/api/seller-clients", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Muestra el mensaje de éxito y oculta el mensaje de error
+            document.getElementById("successMessage").style.display = "block";
+            document.getElementById("errorMessage").style.display = "none";
+            
+            // Puedes agregar lógica adicional aquí según la respuesta de la API
+        })
+        .catch(error => {
+            // Muestra el mensaje de error y oculta el mensaje de éxito
+            document.getElementById("errorMessage").style.display = "block";
+            document.getElementById("successMessage").style.display = "none";
 
-            // Construye el objeto JSON con los datos del formulario
-            const formData = {
-                firstName,
-                lastName,
-                email,
-                phoneNumber,
-                message,
-                location
-            };
-
-            // Realiza la solicitud POST a la API
-            fetch("https://moto-top.azurewebsites.net/api/seller-clients", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(formData)
-})
-
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Manejar la respuesta de la API si es necesario
-                console.log("Respuesta de la API:", data);
-                // Puedes agregar lógica adicional aquí según la respuesta de la API
-            })
-            .catch(error => {
-                console.error("Error al enviar el formulario:", error);
-            });
-        }
-    </script>
+            console.error("Error al enviar el formulario:", error);
+        });
+    }
+</script>
 </body>
 </html>
