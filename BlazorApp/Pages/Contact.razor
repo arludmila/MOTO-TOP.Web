@@ -1,4 +1,5 @@
 ﻿@page "/contact"
+@using Microsoft.AspNetCore.Components.Forms
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,29 +46,29 @@
                             <!-- * * Forms Contact Form * *-->
                             <!-- * * * * * * * * * * * * * * *-->
                             
-                            <form id="contactForm">
+                            <EditForm Model="@sellerClientDto" OnValidSubmit="@CreateSellerClientVisit">
                                 <!-- First Name input-->
                                 <div class="form-floating mb-3">
-                                    <input @bind="firstName" class="form-control" id="first_name" type="text" placeholder="Ingrese su nombre..." data-sb-validations="required" autocomplete="given-name" />
+                                    <input @bind-value=sellerClientDto.FirstName class="form-control" id="first_name" type="text" placeholder="Ingrese su nombre..." data-sb-validations="required" autocomplete="given-name" />
                                     <label for="first_name">Nombre</label>
                                     <div class="invalid-feedback" data-sb-feedback="first_name:required">Debe ingresar su nombre.</div>
                                 </div>
                                 <!-- Last Name input-->
                                 <div class="form-floating mb-3">
-                                    <input @bind="lastName" class="form-control" id="last_name" type="text" placeholder="Ingrese su apellido..." data-sb-validations="required" autocomplete="family-name" />
+                                    <input @bind-value=sellerClientDto.LastName class="form-control" id="last_name" type="text" placeholder="Ingrese su apellido..." data-sb-validations="required" autocomplete="family-name" />
                                     <label for="last_name">Apellido</label>
                                     <div class="invalid-feedback" data-sb-feedback="last_name:required">Debe ingresar su apellido.</div>
                                 </div>
                                 <!-- Email address input-->
                                 <div class="form-floating mb-3">
-                                    <input @bind="email" class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" autocomplete="email" />
+                                    <input @bind-value=sellerClientDto.Email class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" autocomplete="email" />
                                     <label for="email">Email</label>
                                     <div class="invalid-feedback" data-sb-feedback="email:required">Debe ingresar su email.</div>
                                     <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                                 </div>
                                 <!-- Phone number input-->
                                 <div class="form-floating mb-3">
-                                    <input @bind="phoneNumber" class="form-control" id="phone_number" type="tel" placeholder="3333-559922" data-sb-validations="required" autocomplete="off" />
+                                    <input @bind-value=sellerClientDto.PhoneNumber class="form-control" id="phone_number" type="tel" placeholder="3333-559922" data-sb-validations="required" autocomplete="off" />
                                     <label for="phone_number">Número de Telefono</label>
                                     <div class="invalid-feedback" data-sb-feedback="phone_number:required">Debe ingresar su número de telefono.</div>
                                 </div>
@@ -101,7 +102,7 @@
                                 </div>
                                 <!-- Message input-->
                                 <div class="form-floating mb-3">
-                                    <textarea @bind="message" class="form-control" id="message" type="text" placeholder="Ingrese su mensaje..." style="height: 10rem" data-sb-validations="required" autocomplete="off"></textarea>
+                                    <input @bind-value=sellerClientDto.Message class="form-control" id="message" type="text" placeholder="Ingrese su mensaje..." style="height: 10rem" data-sb-validations="required" autocomplete="off">
                                     <label for="message">Mensaje</label>
                                     <div class="invalid-feedback" data-sb-feedback="message:required">Debe ingresar un mensaje.</div>
                                 </div>
@@ -123,8 +124,8 @@
                                 <!-- an error submitting the form-->
                                 <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                                 <!-- Submit Button-->
-                                <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit" @onclick="CreateSellerClientVisit">Enviar</button></div>
-                            </form>
+                                <input class="btn btn-primary btn-lg" id="submitButton" type="submit" value="Enviar">
+                            </EditForm>
                         </div>
                     </div>
                 </div>

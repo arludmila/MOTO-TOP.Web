@@ -9,6 +9,7 @@ namespace BlazorApp.Pages
     {
         private HttpClient _httpClient;
         private List<string> cities = new List<string>();
+        private SellerClientDto sellerClientDto = new SellerClientDto();
         protected override void OnInitialized()
         {
             // Create and configure an HttpClient instance.
@@ -86,7 +87,7 @@ namespace BlazorApp.Pages
 
         private async Task CreateSellerClientVisit()
         {
-            var sellerClientDto = new SellerClientDto()
+            sellerClientDto = new SellerClientDto()
             {
                 FirstName = firstName,
                 LastName = lastName,
