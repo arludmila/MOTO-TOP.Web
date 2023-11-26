@@ -196,13 +196,35 @@
             });
         }
     </script>
-<script>
-    function enviarFormulario(event) {
-        event.preventDefault(); // Evita la recarga de la página al enviar el formulario
+    <script>
+        function enviarFormulario(event) {
+            event.preventDefault(); // Evita la recarga de la página al enviar el formulario
 
-        // ... (your existing code) ...
+            // Obtiene los valores de los campos del formulario
+            const firstName = document.getElementById("first_name").value;
+            const lastName = document.getElementById("last_name").value;
+            const email = document.getElementById("email").value;
+            const phoneNumber = document.getElementById("phone_number").value;
+            const province = document.getElementById("province").value;
+            const city = document.getElementById("city").value;
+            const address = document.getElementById("address").value;
+            const message = document.getElementById("message").value;
 
-        fetch("https://localhost:7215/api/seller-clients", {
+            // Combina provincia, ciudad y dirección en un solo campo "location"
+            const location = `${province}, ${city}, ${address}`;
+
+            // Construye el objeto JSON con los datos del formulario
+            const formData = {
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                message,
+                location
+            };
+
+            // Realiza la solicitud POST a la API
+            fetch("https://localhost:7215/api/seller-clients", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -229,7 +251,7 @@
 
             console.error("Error al enviar el formulario:", error);
         });
-    }
-</script>
+        }
+    </script>
 </body>
 </html>
