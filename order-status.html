@@ -105,15 +105,7 @@
             .then(data => {
                     // Traduce y muestra el resultado en el div
                     var resultSpan = document.getElementById("result");
-                    if (data === "Received") {
-                        resultSpan.innerText = "Recibido";
-                    } else if (data === "Preparing") {
-                        resultSpan.innerText = "En preparación";
-                    } else if (data === "Shipped") {
-                        resultSpan.innerText = "Enviado";
-                    } else {
-                        resultSpan.innerText = "Estado desconocido";
-                    }
+                    resultSpan.innerText = data;
                 })
                 .catch(error => {
                     // Maneja el error si ocurre
